@@ -23,6 +23,7 @@ class PWM: public I2C {
     void setPulseWidthPercentage(uint8_t pulseWidthPercentage);
     uint8_t getPulseWidthPercentage();
 
+    static constexpr double CLOCK = 72000000.0;
 
     private:
         int pulseWidth;
@@ -39,7 +40,9 @@ class PWM: public I2C {
         static constexpr uint8_t REG_PSC2 = 0x50;
         static constexpr uint8_t REG_ARR2 = 0x54;
 
-        static constexpr double CLOCK = 72000000.0;
-        static inline uint16_t timerArr[7] = {1,1,1,1,1,1,1};
-        std::vector<uint8_t> ADDR = {0x14, 0x15, 0x16};
+        // static inline uint16_t timerArr[7] = {1,1,1,1,1,1,1};
+        // std::vector<uint8_t> ADDR = {0x14, 0x15, 0x16};
+
+        static std::array<uint16_t, 7> timerArr;
+        static const std::vector<uint8_t> ADDR;
 };
