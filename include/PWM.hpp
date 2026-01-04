@@ -1,3 +1,6 @@
+#ifndef PWM_H
+#define PWM_H
+
 #include "include/I2C.hpp"
 #include <cstdint>
 #include <vector>
@@ -46,3 +49,5 @@ class PWM: public I2C {
         static std::array<uint16_t, 7> timerArr;
         static const std::vector<uint8_t> ADDR;
 };
+
+#endif

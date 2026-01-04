@@ -1,3 +1,6 @@
+#ifndef CAR_H
+#define CAR_H
+
 #include "include/Servo.hpp"
 #include "include/PWM.hpp"
 #include "include/Pin.hpp"
@@ -46,3 +49,5 @@ class Car {
         int   caliSpeedValue[2] = {0, 0};
         int   dirCurrentAngle = 0;
 };
+
+#endif

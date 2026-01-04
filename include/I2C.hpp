@@ -1,3 +1,6 @@
+#ifndef I2C_H
+#define I2C_H
+
 #include <cstdint>
 #include <vector>
 
@@ -14,3 +17,5 @@ class I2C {
 
         bool probe(uint8_t addr);
 };
+
+#endif

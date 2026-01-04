@@ -1,3 +1,6 @@
+#ifndef Servo_H
+#define Servo_H
+
 #include "include/PWM.hpp"
 #include <vector>
 
@@ -14,3 +17,5 @@ class Servo : public PWM {
         uint16_t MinPw = 500;
         uint16_t PERIOD = 4095;
 };
+
+#endif
