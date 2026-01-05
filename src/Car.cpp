@@ -2,7 +2,7 @@
 #include <cmath>
 
 Car::Car(std::array<std::string, 3> servoPins,
-         std::array<std::string, 4> motorPins
+         std::array<std::string, 4> motorPins,
          std::array<std::string, 2> ultrasonicPins)
     : dirServoPin(servoPins[2]),
       leftRearDirPin(motorPins[0]),
@@ -10,13 +10,13 @@ Car::Car(std::array<std::string, 3> servoPins,
       leftRearPwmPin(motorPins[2]),
       rightRearPwmPin(motorPins[3])
 {
-    leftPwm_.period(PERIOD);
-    rightPwm_.period(PERIOD);
-    leftPwm_.prescaler(PRESCALER);
-    rightPwm_.prescaler(PRESCALER);
+    leftRearPwmPin.setPeriod(PERIOD);
+    rightRearPwmPin.setPeriod(PERIOD);
+    leftRearPwmPin.setPrescaler(PRESCALER);
+    rightRearPwmPin.setPrescaler(PRESCALER);
 }
 
-Car::setMotorSpeed(uint8_t motor, int speed) {
+void Car::setMotorSpeed(uint8_t motor, int speed) {
     if (speed > 100) speed = 100;
     if (speed < -100) speed = -100;
     motor -= 1;
@@ -32,10 +32,10 @@ Car::setMotorSpeed(uint8_t motor, int speed) {
 
     if (direction < 0) {
         dirPin.high();
-        pwmPin.pulse_width_percent(speed);
+        pwmPin.setPulseWidthPercentage(speed);
     } else {
         dirPin.high();
-        pwmPin.pulse_width_percent(speed);
+        pwmPin.setPulseWidthPercentage(speed);
     }
 
 }
@@ -78,19 +78,27 @@ void Car::backward(int speed) {
     }
 }
 
-void PWM::stop() {
+void Car::stop() {
     for (int i=0;i<2;i++){
-        leftRearPwmPin.pulse_width_percent(0);
-        rightRearPwmPin.pulse_width_percent(0);
+        leftRearPwmPin.setPulseWidthPercentage(0);
+        rightRearPwmPin.setPulseWidthPercentage(0);
     }
+}
+
+void Car::steer(int angle) {
+    if (angle < -90) angle = -90;
+    if (angle > 90)  angle = 90;
+
+    steerAngle = static_cast<int8_t>(angle);
+    dirServoPin.angle(steerAngle);
 }
 
 void Car::handleKey(char key) {
     switch (key) {
-        case 'w': case 'W': forward(driveSpeed_); break;
-        case 's': case 'S': backward(driveSpeed_); break;
-        case 'a': case 'A': steer(dirCurrentAngle_ - steerStep_); break;
-        case 'd': case 'D': steer(dirCurrentAngle_ + steerStep_); break;
+        case 'w': case 'W': forward(driveSpeed); break;
+        case 's': case 'S': backward(driveSpeed); break;
+        case 'a': case 'A': steer(dirCurrentAngle - steerStep); break;
+        case 'd': case 'D': steer(dirCurrentAngle + steerStep); break;
         case ' ': stop(); break;
         default: break;
     }

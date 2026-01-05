@@ -1,7 +1,8 @@
 #include "include/Servo.hpp"
+#include <cmath>
 
-Servo::Servo(std::string channelStr, std::vector<uint8_t> address) :
-    PWM::PWM(channelStr, address)
+Servo::Servo(std::string channelStr, std::vector<uint8_t> address)
+    : PWM(channelStr, address.empty() ? std::vector<uint8_t>{} : address)
 {
     setPeriod(PERIOD);
     double psc_d = CLOCK / freqHz / static_cast<double>(PERIOD);

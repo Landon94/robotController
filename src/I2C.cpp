@@ -22,7 +22,7 @@ I2C::I2C(int bus, uint8_t address)
     }
 }
 
-I2C::I2C(int bus, std::vector<uint8_t>& address) 
+I2C::I2C(int bus, const std::vector<uint8_t>& address) 
     : bus(bus)
 {
     std::string dev = "/dev/i2c-" + std::to_string(bus);

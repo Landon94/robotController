@@ -12,6 +12,7 @@ class Car {
         std::array<std::string, 2> ultrasonicPins = {"D2","D3"});
         void forward(int speed);
         void backward(int speed);
+        void steer(int angle);
         void stop();
 
         void handleKey(char key);
@@ -34,8 +35,8 @@ class Car {
     private:
         void setMotorSpeed(uint8_t motor, int speed);
 
-        Servo camPan;
-        Servo camTilt;
+        // Servo camPan;
+        // Servo camTilt;
         Servo dirServoPin;
 
         Pin leftRearDirPin;
@@ -48,6 +49,11 @@ class Car {
         int   caliDirValue[2] = {1, 1};
         int   caliSpeedValue[2] = {0, 0};
         int   dirCurrentAngle = 0;
+
+
+        int8_t steerAngle = 0;
+        int8_t steerStep  = 5;
+        int driveSpeed    = 50;
 };
 
 #endif
