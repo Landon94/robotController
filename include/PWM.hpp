@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include <string>
+#include <array>
 
 
 class PWM: public I2C {
@@ -29,7 +30,6 @@ class PWM: public I2C {
     static constexpr double CLOCK = 72000000.0;
 
     private:
-        int pulseWidth;
         int channel;
         double freqHz;
 

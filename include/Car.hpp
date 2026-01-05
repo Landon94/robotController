@@ -9,12 +9,12 @@ class Car {
     public:
     Car(std::array<std::string, 3> servoPins = {"P0","P1","P2"},
         std::array<std::string, 4> motorPins = {"D4","D5","P13","P12"},
-        std::array<std::string, 2> ultrasonicPins = {"D2","D3"})
+        std::array<std::string, 2> ultrasonicPins = {"D2","D3"});
         void forward(int speed);
         void backward(int speed);
         void stop();
 
-        handleKey(char key);
+        void handleKey(char key);
         void setDirServoAngle(float angle);
 
         // void setDirServoCalibration(float cal);
