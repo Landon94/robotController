@@ -11,6 +11,8 @@ class I2C {
 
         bool writeRegWord(uint8_t reg, uint16_t value);
 
+        ~I2C();
+
     private:
         int fd;
         int bus;
