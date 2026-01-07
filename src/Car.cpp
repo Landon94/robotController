@@ -34,7 +34,7 @@ void Car::setMotorSpeed(uint8_t motor, int speed) {
         dirPin.high();
         pwmPin.setPulseWidthPercentage(speed);
     } else {
-        dirPin.high();
+        dirPin.low();
         pwmPin.setPulseWidthPercentage(speed);
     }
 
@@ -86,8 +86,8 @@ void Car::stop() {
 }
 
 void Car::steer(int angle) {
-    if (angle < -90) angle = -90;
-    if (angle > 90)  angle = 90;
+    if (angle < DIR_MIN) angle = DIR_MIN;
+    if (angle > DIR_MAX)  angle = DIR_MAX;
 
     steerAngle = static_cast<int8_t>(angle);
     dirServoPin.angle(steerAngle);
@@ -97,8 +97,8 @@ void Car::handleKey(char key) {
     switch (key) {
         case 'w': case 'W': forward(driveSpeed); break;
         case 's': case 'S': backward(driveSpeed); break;
-        case 'a': case 'A': steer(dirCurrentAngle - steerStep); break;
-        case 'd': case 'D': steer(dirCurrentAngle + steerStep); break;
+        case 'a': case 'A': steer(steerAngle - steerStep); break;
+        case 'd': case 'D': steer(steerAngle + steerStep); break;
         case ' ': stop(); break;
         default: break;
     }
